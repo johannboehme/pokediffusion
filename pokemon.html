@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+#pokemon-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+}
+#pokemon-container > div {
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    background-color: #f5f5f5;
+}
+#pokemon-container > div > h2 {
+    text-align: center;
+}
+
+    </style>
+    <script>
+    //get all pokemon from the pokemon api via fetch
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+        .then(response => response.json())
+        .then(data => {
+            //get the pokemon container
+            const pokemonContainer = document.getElementById('pokemon-container');
+            //loop through all pokemon
+            data.results.forEach(pokemon => {
+                //create a new div for each pokemon
+                const pokemonDiv = document.createElement('div');
+                //add the pokemon name to the div
+                //generate heading element
+                const pokemonHeading = document.createElement('h2');
+                //add the pokemon name to the heading
+                pokemonHeading.innerText = pokemon.name;
+                //add the heading to the div
+                pokemonDiv.appendChild(pokemonHeading);
+                //add the div to the pokemon container
+                //add an image to the div
+                const pokemonImage = document.createElement('img');
+                pokemonImage.src = `https://api.computerender.com/generate/${pokemon.name}.png`;
+                pokemonDiv.appendChild(pokemonImage);
+                pokemonContainer.appendChild(pokemonDiv);
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="pokemon-container"></div>
+</body>
+</html>
